@@ -1,3 +1,16 @@
+function wordCounter(accumulator, currentLine) {
+  const currentLineWordCount = currentLine.split(' ').length;
+  let linesWithWordCount = 1;
+
+  if (accumulator[currentLineWordCount]) {
+    linesWithWordCount += accumulator[currentLineWordCount];
+  }
+
+  return Object.assign({}, accumulator, {
+    [currentLineWordCount]: linesWithWordCount,
+  });
+}
+
 const batteryBatches = [4, 5, 3, 4, 4, 6, 5];
 
 const monologueLines = [
@@ -17,6 +30,8 @@ const monologueLines = [
   'I am the one who knocks!',
 ];
 
-const totalBatteries = batteryBatches.reduce((a, b) => {
-  return a + b;
+const totalBatteries = batteryBatches.reduce((accumulator, currentValue) => {
+  return accumulator + currentValue;
 });
+
+const wordCountMap = monologueLines.reduce(wordCounter, {});
